@@ -14,21 +14,40 @@ class Pessoa
 
     def m1
         puts "M1 method public"
-        m2 
-        m3
+        m2        
     end
 
-    private
+    private  # tudo abaixo do private se torna metodo privado
     def m2
         puts "m2 private"
     end
      
     def m3
-        p "m3 private method"
+        puts "m3 private method"
+    end
+
+    def m4
+        puts "m4 private so" 
+    end 
+
+    protected # tudo abaixo é protected
+    def m6
+        puts "m6 method protected"
     end
 end
 
-pessoa = Pessoa.gerar
+class SubClasse < Pessoa
+    puts "pessoa filha gerada "
+    def m5
+        puts "M5 Method subclass"
+        m3 
+        m4
+        new_obj = SubClasse.new
+        new_obj.m6
+    end
+end
+
+pessoa = SubClasse.new
 pessoa1 = Pessoa.gerar
 pessoa2 = Pessoa.gerar
 pessoa3 = Pessoa.gerar
@@ -36,5 +55,5 @@ pessoa3 = Pessoa.gerar
 p Pessoa.numero_de_pessoas
 
 pessoa.m1
-pessoa.m2
+pessoa.m5
 pessoa.m3
