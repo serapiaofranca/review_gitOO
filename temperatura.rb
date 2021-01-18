@@ -12,4 +12,5 @@ end
 termostato = SensorTemperatura.new("termostato")
 termostato.instalar
 p "Temperatura atual: #{termostato.temperatura} °C"
+termostato.inicializar
 termostato.coletar_dados
