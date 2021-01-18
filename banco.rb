@@ -1,20 +1,35 @@
 #!/usr/bin/env ruby
+require_relative "agencia"
 
 class Banco
-    attr_reader :banco_id
-    attr_accessor :banco_nome, :banco_numero, :agencias
-
-    def initialize
-        @banco_nome = nil
-        @banco_id = 0
-        @banco_numero = 0
-        @agencias << []
+    
+    attr_accessor :banco_nome, :banco_numero, :banco_id, :agencias
+    
+    def initialize(nome)
+        @banco_nome = nome
+        @banco_numero += 1
+        @banco_id += 1
+        @agencias = []
     end
 
-    def cadastrar_banco(nome)
-        banco = Banco.new
-        @banco.banco_nome = nome
-        @banco.banco_numero += 1
-        @banco.banco_id +=1
+    def mostrar_banco
+        puts "Banco: #{@banco_nome}"
+        puts "Codigo Banco: #{@banco_id}"        
+    end
+
+    def incluir_agencia(agencia)
+        @agencias << agencia
+    end
+
+    def listar_agencias
+        puts "Agencia Numero ::: Agencia Nome :::"
+
+        @agencias.each do |agencia|
+            agencia.mostrar_agencia 
+        end
     end
 end
+
+#bradesco = Banco.new
+#bradesco.cadastrar_banco("Bradesco")
+#bradesco.mostrar_banco

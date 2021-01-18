@@ -2,25 +2,26 @@
 
 class Cliente
 
-    attr_accessor :nome, :id, :documento, :cliente_ativo 
+    attr_accessor :nome, :documento, :cliente_ativo, :cliente_num
+    @@id = 0
       
-    def initialize
-        @id = 0
-        @nome = "nome"
-        @documento = ["documento"]
-        @cliente_ativo = false
-    end
-
-    def criar_cliente (nome, documento)
-        
-        @id += 1
+    def initialize (nome, documento)
+        @@id +=1
+        @id = @@id
         @nome = nome
-        @documento << documento        
-        @cliente_ativo = true
-        puts "Cliente cadastrado no sistema..."        
+        @documento = documento
+        @cliente_ativo = false
+    end 
+
+    def ativar_cliente
+        self.cliente_ativo = true
     end
 
-    def mostrar_cliente
+    def desativar_cliente
+        self.cliente_ativo = false
+    end
+
+    def imprimir_cliente
         puts "Codigo: #{@id}"
         puts "Nome: #{@nome}"
         puts "Documento: #{@documento}"
@@ -32,6 +33,8 @@ class Cliente
     end
 
 end
+
+
 
 
 

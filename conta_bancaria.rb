@@ -1,39 +1,30 @@
 #!/usr/bin/env ruby
+require_relative "cliente"
 
 class Conta 
-    attr_reader :num_conta, :digito, :ativo
+
+    @@add_conta = 0
+    @@add_digito = 5
+
+    attr_reader :num_conta, :digito, :ativo, :cliente
     attr_reader :saldo
-    attr_reader :cliente
 
-    def initialize
-        @num_conta = 0
-        @digito = 0
-        @saldo = 0
-        @ativo = false
-    end
-
-    def criar_conta(cliente)
-        if cliente.cliente_ativo == true
-            @num_conta +=3
-            @digito += 1
+   
+    def initialize(titular)
+        if titular.cliente_ativo == true
+            @@add_conta +=1
+            @num_conta = @@add_conta
+            @digito = @@add_digito
             @saldo = 0
             @ativo = true
-            @cliente = cliente
-            puts "Conta vinculada ao cliente #{cliente}"
+            @cliente = titular
+            puts "Conta #{self.num_conta}-#{self.digito} vinculada ao cliente #{self.cliente.nome}"
         else
             puts "Cliente inativo no sistema... favor verificar"
         end
     end
 
-    def depositar(valor)
-        if valor > 0 && @ativo == true
-            @saldo += valor
-            puts "Deposito realizado com sucesso.."
-        else
-            puts "conta inativa, impossivel realizar deposito..."
-        end
-    end
-
+    #private
     def sacar(valor)
         if @saldo > valor && @ativo == true
             @saldo -= valor  
@@ -44,25 +35,42 @@ class Conta
         end
     end
 
-    def transferir(conta, digito, valor)
-        if @conta.sacar(valor) 
-            if conta.depositar(valor)
-                @conta.sacar(valor)
-                conta.depositar(valor)
-                puts " Transferencia de $#{valor} realizado com sucesso para conta: #{conta} - #{digito} "
+    def mostrar_conta
+        puts "-" *30
+        puts "Conta Numero: #{self.num_conta}"
+        puts "Digito: #{self.digito}"
+        puts "Titular: #{self.cliente.nome}"
+        puts "SALDO $#{self.saldo} "
+        puts "Ativo: #{@ativo}"
+        puts "-" *30
+    end
+
+    def transferir(conta_favorecida, valor)
+        if (self.sacar(valor) == true)
+            if (conta_favorecida.depositar(valor) == true)
+                self.sacar(valor)
+                @conta_favorecida.depositar(valor)
+                puts("Transferencia para #{conta_favorecida.cliente.mostrar_cliente} Valor: @#{valor} realizada com sucesso")
             else
-                puts ".... Falha ao transferir, conta destino invalida..."
+                puts "Falha ao transferir para #{conta_favorecida.num_conta} - #{conta.digito}"
             end
         else
-            puts "Nao foi possivel realizar operação :: conta: #{@conta}-#{@digito} :: Saldo: $#{@saldo} "
+            puts "Erro ao transferir. Conta: #{self.num_conta}-#{self.digito} Saldo: $#{self.saldo}"
         end
     end
 
-    def mostrar_conta
-        puts "Conta Numero: #{@num_conta}"
-        puts "Digito: #{@digito}"
-        puts "SALDO $#{@saldo} "
-        puts "Ativo: #{@ativo}"
+    public
+    def depositar(valor)
+        if valor > 0 && @ativo == true
+            @saldo += valor
+            puts "Deposito realizado com sucesso.."
+        else
+            puts "conta inativa, impossivel realizar deposito..."
+        end
     end
+
+
 end
+
+
 
