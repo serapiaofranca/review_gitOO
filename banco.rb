@@ -2,14 +2,18 @@
 require_relative "agencia"
 
 class Banco
-    
+
+    @@add_banco_num = 0
+    @@add_banco_id = 0
     attr_accessor :banco_nome, :banco_numero, :banco_id, :agencias
     
     def initialize(nome)
-        @banco_nome = nome
-        @banco_numero += 1
-        @banco_id += 1
-        @agencias = []
+        @@add_banco_num += 1
+        @@add_banco_id += 1
+        self.banco_nome = nome
+        self.banco_numero = @@add_banco_num
+        self.banco_id = @@add_banco_id
+        self.agencias = []
     end
 
     def mostrar_banco
@@ -22,6 +26,7 @@ class Banco
     end
 
     def listar_agencias
+        puts self.banco_nome 
         puts "Agencia Numero ::: Agencia Nome :::"
 
         @agencias.each do |agencia|
@@ -30,6 +35,4 @@ class Banco
     end
 end
 
-#bradesco = Banco.new
-#bradesco.cadastrar_banco("Bradesco")
-#bradesco.mostrar_banco
+

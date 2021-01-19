@@ -46,20 +46,20 @@ class Conta
     end
 
     def transferir(conta_favorecida, valor)
-        if (self.sacar(valor) == true)
-            if (conta_favorecida.depositar(valor) == true)
+        if (self.saldo > valor)
+            if (conta_favorecida.ativo)
                 self.sacar(valor)
-                @conta_favorecida.depositar(valor)
-                puts("Transferencia para #{conta_favorecida.cliente.mostrar_cliente} Valor: @#{valor} realizada com sucesso")
+                conta_favorecida.depositar(valor)
+                puts "Transferencia bem sucedida para #{conta_favorecida.cliente.nome}"
             else
-                puts "Falha ao transferir para #{conta_favorecida.num_conta} - #{conta.digito}"
+                puts "Conta invalida ou inativa... Numero: #{conta_favorecida.num_conta}-#{conta_favorecida.digito}"
             end
         else
-            puts "Erro ao transferir. Conta: #{self.num_conta}-#{self.digito} Saldo: $#{self.saldo}"
+
         end
     end
 
-    public
+    #protected
     def depositar(valor)
         if valor > 0 && @ativo == true
             @saldo += valor
@@ -68,7 +68,6 @@ class Conta
             puts "conta inativa, impossivel realizar deposito..."
         end
     end
-
 
 end
 
