@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require_relative "conta_bancaria"
+require_relative "conta_corrente"
 require_relative "cliente"
 require_relative "banco"
 require_relative "agencia"
@@ -17,7 +17,7 @@ require_relative "agencia"
 
 
  # cria contas cliente A e B
- conta_rogerio = Conta.new(rogerio)
+ conta_rogerio = ContaCorrente.new(rogerio)
  #conta_rogerio.criar_conta(rogerio)
 
  conta_maria = Conta.new(maria)
@@ -31,8 +31,9 @@ require_relative "agencia"
  conta_maria.depositar(500)
  conta_maria.sacar(100)
 
- # transferir de conta B para conta A
- conta_maria.transferir(conta_rogerio, 250)
+ # transferir de conta A para conta B com tarifa
+ conta_rogerio.transferir(conta_maria, 250)  ## falha, saldo insuficiente
+ conta_rogerio.transferir(conta_maria, 150)
 
  conta_rogerio.mostrar_conta
  conta_maria.mostrar_conta
